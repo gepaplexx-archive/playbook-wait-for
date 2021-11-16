@@ -1,6 +1,7 @@
 ---
 - name: Wait for OpenSSH
   hosts: all
+  gather_facts: false
   # vars:
   #   wait_for_ssh_port: 22              # SSH Port number to poll.
   #   wait_for_ssh_timeout_in_sec: 300   # Maximum number of seconds to wait for OpenSSH to become available.
