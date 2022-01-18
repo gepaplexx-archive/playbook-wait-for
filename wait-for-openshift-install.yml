@@ -40,4 +40,9 @@
         - name: Print async task details
           ansible.builtin.debug:
             var: wait_for_ocp_install_res
+
+    - name: copy kubeconfig to ansible user
+      ansible.builtin.copy:
+        src: "{{ ocp_config_path}}/auth/kubeconfig"
+        dest: "~/.kube/config"
 ...
