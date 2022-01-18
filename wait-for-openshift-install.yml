@@ -43,6 +43,6 @@
 
     - name: copy kubeconfig to ansible user
       ansible.builtin.copy:
-        src: "{{ ocp_config_path}}/auth/kubeconfig"
+        remote_src: "{{ ocp_config_path}}/auth/kubeconfig"
         dest: "~/.kube/config"
 ...
