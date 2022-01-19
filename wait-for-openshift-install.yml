@@ -20,7 +20,7 @@
         - name: Run async openshift-install wait-for install-complete
           ansible.builtin.command:
             cmd: "./openshift-install --dir={{ ocp_config_path }} wait-for install-complete --log-level=info"
-            chdir: "{{ ocp_base_path }}"
+            chdir: "{{ ocp_base_path }}"
           async: "{{ wait_for_ocp_timeout_in_sec | default(3060) }}"  # The task will only time out if it exceeds the timeout limit 
                                                                       # you set with the async parameter (value in seconds).
           poll: 0                           # When you set poll: 0, Ansible starts the task and immediately moves on to the next 
@@ -40,4 +40,9 @@
         - name: Print async task details
           ansible.builtin.debug:
             var: wait_for_ocp_install_res
+
+    - name: copy kubeconfig to ansible user
+      ansible.builtin.copy:
+        remote_src: "{{ ocp_config_path}}/auth/kubeconfig"
+        dest: "{{ wait_for_user_home | default('/home/ansible') }}/.kube/config"
 ...
