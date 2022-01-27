@@ -43,6 +43,8 @@
 
     - name: copy kubeconfig to ansible user
       ansible.builtin.copy:
-        remote_src: "{{ ocp_config_path}}/auth/kubeconfig"
+        remote_src: true
+        src:  "{{ ocp_config_path }}/auth/kubeconfig"
         dest: "{{ wait_for_user_home | default('/home/ansible') }}/.kube/config"
+        mode: "0644"
 ...
