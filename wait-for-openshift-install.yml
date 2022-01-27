@@ -41,6 +41,11 @@
           ansible.builtin.debug:
             var: wait_for_ocp_install_res
 
+    - name: create .kube direcotry
+      file:
+        path: "{{ wait_for_user_home | default('/home/ansible') }}/.kube"
+        state: directory
+
     - name: copy kubeconfig to ansible user
       ansible.builtin.copy:
         remote_src: true
