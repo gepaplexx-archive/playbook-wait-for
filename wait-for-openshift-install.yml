@@ -52,4 +52,13 @@
         src:  "{{ ocp_config_path }}/auth/kubeconfig"
         dest: "{{ wait_for_user_home | default('/home/ansible') }}/.kube/config"
         mode: "0644"
+
+    - name: create kubectl alias                                                   # allows using the installer generated kubeconfig file
+      ansible.builtin.command:                                                     # with new valid letsencrypt certificates
+        cmd: "echo 'alias {{ item }}={{ item }} --insecure-skip-tls-verify' >> /home/ansible/.bashrc"
+      loop:
+        - oc
+        - kubectl
+      changed_when: true
+      failed_when: false
 ...
